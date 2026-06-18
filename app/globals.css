@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/*
+  Study Nook — pastel cozy design system.
+  Colors are exposed as Tailwind v4 theme tokens, so utilities like
+  `bg-blush`, `text-cocoa`, `border-lavender` are generated automatically.
+*/
+@theme {
+  /* Surfaces */
+  --color-cream: #fff8f2; /* page background */
+  --color-card: #fffdfb; /* widget cards */
+  --color-overlay: #fff3ea; /* subtle raised areas */
+
+  /* Text */
+  --color-cocoa: #6b5e5e; /* primary text */
+  --color-cocoa-soft: #9a8c8c; /* muted / secondary text */
+  --color-cocoa-faint: #c9bdbd; /* placeholders, hairlines */
+
+  /* Pastel accents */
+  --color-blush: #fadadd;
+  --color-blush-deep: #f4a9b8;
+  --color-lavender: #e8e0ff;
+  --color-lavender-deep: #b9a7f0;
+  --color-mint: #d9f2e6;
+  --color-mint-deep: #8fd6b4;
+  --color-butter: #fff3d6;
+  --color-peach: #ffe0cc;
+  --color-peach-deep: #ffb38a;
+  --color-sky: #d6ecff;
+
+  /* Rounded, cozy typeface (wired up in layout via next/font) */
+  --font-sans: var(--font-quicksand), ui-rounded, "Segoe UI", system-ui,
+    sans-serif;
+
+  /* Soft, diffuse shadows */
+  --shadow-soft: 0 8px 24px -12px rgba(140, 110, 110, 0.35);
+  --shadow-lift: 0 14px 32px -14px rgba(140, 110, 110, 0.45);
+
+  /* Generous radii */
+  --radius-cozy: 1.5rem;
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-cocoa);
+}
+
+body {
+  background:
+    radial-gradient(
+      1100px 700px at 12% -8%,
+      var(--color-blush) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 600px at 100% 0%,
+      var(--color-lavender) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      900px 700px at 50% 115%,
+      var(--color-mint) 0%,
+      transparent 55%
+    ),
+    var(--background);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Friendlier default focus ring in the pastel palette */
+:focus-visible {
+  outline: 2px solid var(--color-blush-deep);
+  outline-offset: 2px;
+}
+
+/* Roaming pet — a gentle walking bob */
+@keyframes pet-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.pet-walk {
+  animation: pet-bob 0.5s ease-in-out infinite;
+}
+
+/* Thin, cozy scrollbars inside scrollable widget panels */
+.cozy-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-cocoa-faint) transparent;
+}
+.cozy-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.cozy-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-cocoa-faint);
+  border-radius: 9999px;
+}
