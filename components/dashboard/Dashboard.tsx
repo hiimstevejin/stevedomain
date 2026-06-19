@@ -9,9 +9,22 @@ import { Pet } from "./Pet";
 import { track } from "@/lib/analytics";
 
 export function Dashboard() {
-  // Fire a single sign-in/session event per browser session (placeholder for
-  // future Google Ads conversion tracking — see lib/analytics.ts).
+  // Conversion tracking (see lib/analytics.ts):
+  //  · sign_up — the PRIMARY Google Ads conversion. A new user's first-ever
+  //    authenticated load. No DB, so "new" is approximated by a persistent
+  //    localStorage marker (fires once per browser, ever).
+  //  · sign_in — a lighter per-session event (observation, not a conversion).
   useEffect(() => {
+    try {
+      if (!localStorage.getItem("studynook:signed_up")) {
+        localStorage.setItem("studynook:signed_up", "1");
+        track("sign_up");
+      }
+    } catch {
+      // localStorage unavailable — skip the once-ever guard rather than
+      // double-count the conversion.
+    }
+
     try {
       if (sessionStorage.getItem("studynook:greeted")) return;
       sessionStorage.setItem("studynook:greeted", "1");
